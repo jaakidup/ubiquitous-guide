@@ -30,7 +30,7 @@
 export default {
   asyncData({ $axios }) {
     return $axios
-      .get("http://localhost:8080/user")
+      .get("http://localhost:8080/users")
       .then(response => {
         return {
           users: response.data,
@@ -48,7 +48,7 @@ export default {
   methods: {
     resfreshData() {
       this.$axios
-        .get("http://localhost:8080/user")
+        .get("http://localhost:8080/users")
         .then(response => {
           return {
             users: response.data,
@@ -70,7 +70,7 @@ export default {
       }
 
       this.$axios
-        .post("http://localhost:8080/user", this.user)
+        .post("http://localhost:8080/users", this.user)
         .then(response => {
           if (!this.editing) {
             this.users.push(response.data);
@@ -88,7 +88,7 @@ export default {
       this.editing = true;
     },
     deleteUser(user) {
-      let url = "http://localhost:8080/user/" + user.id;
+      let url = "http://localhost:8080/users/" + user.id;
       this.$axios
         .delete(url)
         .then(response => {
