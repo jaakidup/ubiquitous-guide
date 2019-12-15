@@ -1,12 +1,18 @@
 <template>
   <div>
-      user
+    User
+    <br>
+    {{ params }}
   </div>
 </template>
 
 <script>
 export default {
-    
+    asyncData({params}) {
+      return {
+        params: params
+      }
+    }
 }
 </script>
 
