@@ -12,20 +12,21 @@ import (
 func (server *Server) UserDelete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
-	// TODO: delete user
-	// TODO Delete all the task connected to the user
-	fmt.Println("Delete user with id", params.ByName("userid"))
-
-	// delete
 	delete, _ := server.db.Prepare("DELETE FROM users WHERE id=?")
-
 	_, err := delete.Exec(params.ByName("userid"))
 	if err != nil {
-		fmt.Println(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
-	} else {
-		w.WriteHeader(http.StatusOK)
+		return
 	}
+
+	deleteTasks, _ := server.db.Prepare("DELETE FROM tasks WHERE user_id=?")
+	_, err = deleteTasks.Exec(params.ByName("userid"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 
 }
 
