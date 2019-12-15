@@ -39,18 +39,18 @@ func setup() {
 func routes() {
 	// server.router.OPTIONS("/", Logger(server.Options))
 	// server.router.OPTIONS("/user", Logger(server.Options))
-	server.router.GET("/user", Logger(server.UsersList))
+	server.router.GET("/users", Logger(server.UsersList))
 	server.router.OPTIONS("/user", Logger(server.Options))
 	server.router.POST("/user", Logger(server.UserUpdate))
 	server.router.OPTIONS("/user/:userid", Logger(server.Options))
 	server.router.DELETE("/user/:userid", Logger(server.UserDelete))
 	// server.router.OPTIONS("/user/:userid", Logger(server.Options))
 
-	server.router.GET("/user/:userid", Logger(server.UserTasks))
-	server.router.OPTIONS("/user/:userid/task", Logger(server.Options))
-	server.router.POST("/user/:userid/task", Logger(server.TaskUpdate))
-	server.router.OPTIONS("/user/:userid/task/:taskid", Logger(server.Options))
-	server.router.DELETE("/user/:userid/task/:taskid", Logger(server.TaskDelete))
+	server.router.GET("/tasks/:userid", Logger(server.UserTasks))
+	server.router.OPTIONS("/task/:userid", Logger(server.Options))
+	server.router.POST("/task/:userid", Logger(server.TaskUpdate))
+	server.router.OPTIONS("/task/:userid/:taskid", Logger(server.Options))
+	server.router.DELETE("/task/:userid/:taskid", Logger(server.TaskDelete))
 }
 
 func main() {

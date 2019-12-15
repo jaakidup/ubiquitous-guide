@@ -42,9 +42,10 @@ func (server *Server) TaskUpdate(w http.ResponseWriter, r *http.Request, params 
 
 	} else {
 		fmt.Println("Update Task")
-		update, _ := server.db.Prepare("UPDATE task SET description=?, state=? WHERE id=? AND user_id=?")
-		_, err := update.Exec(task.Description, task.State, task.ID, params.ByName("userid"))
+		update, _ := server.db.Prepare("UPDATE tasks SET description=?, state=? WHERE id=?")
+		_, err := update.Exec(task.Description, task.State, task.ID)
 		if err != nil {
+			fmt.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
