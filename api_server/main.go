@@ -37,12 +37,19 @@ func setup() {
 }
 
 func routes() {
+	// server.router.OPTIONS("/", Logger(server.Options))
+	// server.router.OPTIONS("/user", Logger(server.Options))
 	server.router.GET("/user", Logger(server.UsersList))
+	server.router.OPTIONS("/user", Logger(server.Options))
 	server.router.POST("/user", Logger(server.UserUpdate))
+	server.router.OPTIONS("/user/:userid", Logger(server.Options))
 	server.router.DELETE("/user/:userid", Logger(server.UserDelete))
+	// server.router.OPTIONS("/user/:userid", Logger(server.Options))
 
 	server.router.GET("/user/:userid", Logger(server.UserTasks))
+	server.router.OPTIONS("/user/:userid/task", Logger(server.Options))
 	server.router.POST("/user/:userid/task", Logger(server.TaskUpdate))
+	server.router.OPTIONS("/user/:userid/task/:taskid", Logger(server.Options))
 	server.router.DELETE("/user/:userid/task/:taskid", Logger(server.TaskDelete))
 }
 
@@ -53,14 +60,23 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", server.router))
 }
 
+// Options ...
+func (server *Server) Options(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
+	fmt.Println("OPTIONS have been requested")
+}
+
 // Logger ...
 func Logger(handle httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		start := time.Now()
 
-		if origin := r.Header.Get("Origin"); origin != "" {
-			w.Header().Set("Access-Control-Allow-Origin", origin)
-		}
+		// if origin := r.Header.Get("Origin"); origin != "" {
+		// 	w.Header().Set("Access-Control-Allow-Origin", origin)
+		// }
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
 		handle(w, r, params)
