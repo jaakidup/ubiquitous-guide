@@ -34,7 +34,6 @@ func setup() {
 	taskTable, _ := server.db.Prepare("CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, state TEXT, user_id TEXT)")
 	taskTable.Exec()
 
-	// TODO insert dummy data
 }
 
 func routes() {
