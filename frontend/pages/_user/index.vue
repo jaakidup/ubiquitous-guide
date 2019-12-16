@@ -1,8 +1,5 @@
 <template>
   <div>
-    Tasks
-    <div v-for="task in tasks" :key="task.id">{{ task }}</div>
-
     <div class="mt-3 mb-5">
       <b-form-input ref="input" placeholder="Add Task Description" v-model="task.description"></b-form-input>
       <b-button-group class="mt-3">
@@ -10,6 +7,10 @@
         <b-button type="reset" variant="outline-danger" @click="reset">Reset</b-button>
       </b-button-group>
     </div>
+
+
+    <h3>Tasks:</h3>
+
 
     <b-list-group v-show="!editing">
       <div class="pt-3 mt-3" v-for="task in tasks" :key="task.id">
@@ -21,7 +22,7 @@
             @click="deleteTask(task)"
           >DELETE</b-button>
           <b-button size="sm" variant="outline-success" @click="editTask(task)">EDIT</b-button>
-          <!-- <b-button size="sm" variant="outline-primary" :to="{path:'/'+user.id}">VIEW</b-button> -->
+        </b-button-group>
           <b-form-checkbox
             v-model="task.state"
             size="sm"
@@ -32,17 +33,6 @@
             value="done"
             unchecked-value="to do"
           >{{ task.state }}</b-form-checkbox>
-        </b-button-group>
-        <!-- <b-form-checkbox
-            plain
-            size="lg"
-            id="checkbox"
-            v-model="task.state"
-            name="state"
-            value="done"
-            unchecked-value="to do"
-        ></b-form-checkbox>-->
-
         <span class="ml-3">{{task.description}}</span>
       </div>
     </b-list-group>
@@ -85,40 +75,23 @@ export default {
   //     });
   // },
   methods: {
-    reset() {},
+    reset() {
+      this.task = {}
+      this.editing = false
+    },
     submit() {
       if (this.task.description == null) {
         console.log("description is empty");
         return;
       }
-
       this.task.state = "to do";
-      this.updateTask();
-    },
-    checker(task) {
-      console.log(task);
-      task.user_id = Number(this.user);
-      this.$axios
-        .post("http://localhost:8080/task/" + this.user, task)
-        .then(response => {
-          // if (push) {
-          //   this.tasks.push(response.data);
-          // }
-          // this.task = {};
-          // this.editing = false;
-        })
-        .catch(err => {
-          console.log(err);
-          this.editing = false;
-        });
-    },
-    updateTask() {
-      console.log(this.task);
       this.task.user_id = Number(this.user);
       this.$axios
         .post("http://localhost:8080/task/" + this.user, this.task)
         .then(response => {
-          this.tasks.push(response.data);
+          if (!this.editing) {
+            this.tasks.push(response.data);
+          }
           this.task = {};
           this.editing = false;
         })
@@ -127,6 +100,17 @@ export default {
           this.editing = false;
         });
     },
+    checker(task) {
+      task.user_id = Number(this.user);
+      this.$axios
+        .post("http://localhost:8080/task/" + this.user, task)
+        .then(response => {})
+        .catch(err => {
+          console.log(err);
+          this.editing = false;
+        });
+    },
+    updateTask() {},
     deleteTask(task) {
       let url = "http://localhost:8080/task/" + this.user + "/" + task.id;
       this.$axios
@@ -140,6 +124,10 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    editTask(task) {
+      this.task = task;
+      this.editing = true;
     }
   }
 };

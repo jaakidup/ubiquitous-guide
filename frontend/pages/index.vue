@@ -8,6 +8,9 @@
       </b-button-group>
     </div>
 
+    <h3>Users:</h3>
+
+
     <b-list-group v-show="!editing">
       <div class="pt-3 mt-3" v-for="user in users" :key="user.id">
         <b-button-group>
@@ -68,9 +71,8 @@ export default {
         console.log("Username is empty");
         return;
       }
-
       this.$axios
-        .post("http://localhost:8080/users", this.user)
+        .post("http://localhost:8080/user", this.user)
         .then(response => {
           if (!this.editing) {
             this.users.push(response.data);
@@ -88,7 +90,7 @@ export default {
       this.editing = true;
     },
     deleteUser(user) {
-      let url = "http://localhost:8080/users/" + user.id;
+      let url = "http://localhost:8080/user/" + user.id;
       this.$axios
         .delete(url)
         .then(response => {

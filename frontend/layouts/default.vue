@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-navbar variant="faded" type="dark">
-      <b-navbar-brand >
+      <b-navbar-brand  v-b-tooltip.hover title="Go to the HOME Page">
         <b-link to="/">
           <img src="~/assets/bunny.svg" class="d-inline-block align-top" alt="Kitten" />
         </b-link>
