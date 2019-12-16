@@ -19,7 +19,6 @@ func (server *Server) TaskUpdate(w http.ResponseWriter, r *http.Request, params 
 		w.WriteHeader(http.StatusNotAcceptable)
 		return
 	}
-	fmt.Println(task)
 
 	if task.ID == 0 {
 		fmt.Println("Create Task")
@@ -80,7 +79,7 @@ func (server *Server) UserTasks(w http.ResponseWriter, r *http.Request, params h
 		return
 	}
 	for rows.Next() {
-		rows.Scan(&task.ID, &task.Description, task.State)
+		rows.Scan(&task.ID, &task.Description, &task.State)
 		tasks = append(tasks, task)
 	}
 	w.WriteHeader(http.StatusOK)
