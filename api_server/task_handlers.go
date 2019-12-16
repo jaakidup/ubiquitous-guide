@@ -36,7 +36,6 @@ func (server *Server) TaskUpdate(w http.ResponseWriter, r *http.Request, params 
 			State:       task.State,
 			UserID:      task.UserID,
 		}
-		// w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(response)
 
 	} else {
