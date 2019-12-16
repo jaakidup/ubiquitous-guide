@@ -39,6 +39,7 @@ Exposes endpoints for User and Task CRUD
 
 ## Architecture
 
+![enter image description here](https://github.com/jaakidup/ubiquitous-guide/blob/master/Architecture-Mermaid_Graph.png)
 
 ```mermaid
 graph LR
