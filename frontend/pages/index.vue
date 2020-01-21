@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-3 mb-5">
-      <b-form-input ref="input" placeholder="Enter a name" v-model="user.name"></b-form-input>
+      <b-form-input ref="input" placeholder="Create a user" v-model="user.name"></b-form-input>
       <b-button-group class="mt-3">
         <b-button type="submit" variant="outline-primary" @click="submit">Submit</b-button>
         <b-button type="reset" variant="outline-danger" @click="reset">Reset</b-button>
