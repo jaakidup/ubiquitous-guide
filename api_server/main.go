@@ -38,16 +38,16 @@ func setup() {
 
 func routes() {
 	server.router.GET("/users", Logger(server.UsersList))
-	server.router.OPTIONS("/user", Logger(server.Options))
-	server.router.POST("/user", Logger(server.UserUpdate))
-	server.router.OPTIONS("/user/:userid", Logger(server.Options))
-	server.router.DELETE("/user/:userid", Logger(server.UserDelete))
+	server.router.OPTIONS("/users", Logger(server.Options))
+	server.router.POST("/users", Logger(server.UserUpdate))
+	server.router.OPTIONS("/users/:userid", Logger(server.Options))
+	server.router.DELETE("/users/:userid", Logger(server.UserDelete))
 
 	server.router.GET("/tasks/:userid", Logger(server.UserTasks))
-	server.router.OPTIONS("/task/:userid", Logger(server.Options))
-	server.router.POST("/task/:userid", Logger(server.TaskUpdate))
-	server.router.OPTIONS("/task/:userid/:taskid", Logger(server.Options))
-	server.router.DELETE("/task/:userid/:taskid", Logger(server.TaskDelete))
+	server.router.OPTIONS("/tasks/:userid", Logger(server.Options))
+	server.router.POST("/tasks/:userid", Logger(server.TaskUpdate))
+	server.router.OPTIONS("/tasks/:userid/:taskid", Logger(server.Options))
+	server.router.DELETE("/tasks/:userid/:taskid", Logger(server.TaskDelete))
 }
 
 func main() {

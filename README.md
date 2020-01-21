@@ -3,6 +3,7 @@
 A simple TODO app 
 Create Users and create Tasks for each User
 
+Messing around with SQL (SQLITE), as I haven't used it in a while
 
 # Backend
 
@@ -29,13 +30,13 @@ Exposes endpoints for User and Task CRUD
 **API Endpoints**
 ***Users***
  1. GET /users , return array of Users
- 2. POST /user , update User if user.id is present, else new User is created 
- 3. DELETE /user/:userid, delete the User with user.id
+ 2. POST /users , update User if user.id is present, else new User is created 
+ 3. DELETE /users/:userid, delete the User with user.id
 
 ***Tasks***
  1. GET /tasks/:userid , return array of Tasks for User with userid 
- 2. POST /task/:userid , update Task if task.id is present, else new Task is created for User with user.id
- 3. DELETE /task/:userid/:taskid, delete the Task with task.id for User with user.id
+ 2. POST /tasks/:userid , update Task if task.id is present, else new Task is created for User with user.id
+ 3. DELETE /tasks/:userid/:taskid, delete the Task with task.id for User with user.id
 
 ## Architecture
 

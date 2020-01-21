@@ -87,7 +87,7 @@ export default {
       this.task.state = "to do";
       this.task.user_id = Number(this.user);
       this.$axios
-        .post("http://localhost:8080/task/" + this.user, this.task)
+        .post("http://localhost:8080/tasks/" + this.user, this.task)
         .then(response => {
           if (!this.editing) {
             this.tasks.push(response.data);
@@ -103,7 +103,7 @@ export default {
     checker(task) {
       task.user_id = Number(this.user);
       this.$axios
-        .post("http://localhost:8080/task/" + this.user, task)
+        .post("http://localhost:8080/tasks/" + this.user, task)
         .then(response => {})
         .catch(err => {
           console.log(err);
@@ -112,7 +112,7 @@ export default {
     },
     updateTask() {},
     deleteTask(task) {
-      let url = "http://localhost:8080/task/" + this.user + "/" + task.id;
+      let url = "http://localhost:8080/tasks/" + this.user + "/" + task.id;
       this.$axios
         .delete(url)
         .then(response => {
